@@ -4,6 +4,14 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 export const environment = {
   production: false,
+  fire:  {
+    apiKey: "AIzaSyATlfOeUvC409gFSrKjwmDIRps4Rdypayc",
+    authDomain: "sleeptracker-2fe95.firebaseapp.com",
+    databaseURL: "https://sleeptracker-2fe95.firebaseio.com",
+    projectId: "sleeptracker-2fe95",
+    storageBucket: "sleeptracker-2fe95.appspot.com",
+    messagingSenderId: "669919412671"
+  }
 };
 
 /*
