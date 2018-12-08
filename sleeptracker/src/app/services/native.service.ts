@@ -6,16 +6,16 @@ import { DeviceMotion, DeviceMotionAccelerationData } from '@ionic-native/device
 declare var cordova;
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class NativeService {
 
-  constructor(private platform: Platform, private deviceMotion:DeviceMotion) {
-  	this.platform.ready().then(() => {
-  		if(this.platform.is('cordova')) {
-  			//TODO: use whatever native library you want! The code does not need to be in the constructor.
-  			//It can be added to a new method instead, but preserve the platform.ready() and this.platform.is(cordova) checks.
-  		}
-  	});
-  }
+	constructor(private platform: Platform, private deviceMotion: DeviceMotion) {
+		this.platform.ready().then(() => {
+			if (this.platform.is('cordova')) {
+				//TODO: use whatever native library you want! The code does not need to be in the constructor.
+				//It can be added to a new method instead, but preserve the platform.ready() and this.platform.is(cordova) checks.
+			}
+		});
+	}
 }

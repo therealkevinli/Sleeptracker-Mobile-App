@@ -1,11 +1,95 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Sleep Logger
+  <ion-toolbar color = "medium">
+    <ion-title class = "title-space">
+      Sleep  Logger
     </ion-title>
+  </ion-toolbar>
+  <ion-toolbar color = "medium" no-border-top>
+    <ion-segment [(ngModel)]="apps">
+      <ion-segment-button (click)='onClickNight()' value="Night">
+        Night
+      </ion-segment-button>
+      <ion-segment-button (click)='onClickDay()' value="Day">
+        Day
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  
+<ion-content color = "dark" padding>
+
+  <ion-list color = "dark" #slidingList *ngIf="apps == 'Day'">
+    <ion-item-sliding color = "dark" *ngFor="let day of allSleepinessData">
+      <ion-item color = "dark">
+        <ion-label>
+          {{day.summaryString()}}
+        </ion-label>
+        <ion-badge color="{{palette[day.logVal-1]}}" item-end>
+          {{day.logVal}}
+        </ion-badge>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="deleteDayData(day)" color="danger">Delete</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-list #slidingList color = "dark" *ngIf="apps == 'Night'">
+    <ion-item-sliding *ngFor="let night of allOvernightData">
+
+      <ion-item color = "dark">
+        <ion-label text-wrap>
+          <ion-text color="primary">
+            {{night.dateString()}}
+          </ion-text><br />
+          <ion-text>
+            {{night.summaryString()}}
+          </ion-text>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="deleteNightData(night)" color="danger">Delete</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-tabs>
+
+      <ion-tab-bar slot="bottom"  color = "medium">
+        <ion-tab-button tab="home" href="/home">
+          <ion-icon name="home"></ion-icon>
+          <ion-label>home</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="lognight" href="/lognight">
+          <ion-icon name="moon"></ion-icon>
+          <ion-label>night</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="logday" href="/logday">
+          <ion-icon name="sunny"></ion-icon>
+          <ion-label>day</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+
+      <ion-tab tab="home">
+        <ion-router-outlet name="view"></ion-router-outlet>
+      </ion-tab>
+
+      <ion-tab tab="lognight">
+        <ion-router-outlet name="night"></ion-router-outlet>
+      </ion-tab>
+
+      <ion-tab tab="logday">
+        <ion-router-outlet name="day"></ion-router-outlet>
+      </ion-tab>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>

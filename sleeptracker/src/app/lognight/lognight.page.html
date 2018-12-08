@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar  color = "medium">
+    <ion-title class ="title-space">Overnight Sleep</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color = "dark" padding>
+  <ion-item  color = "dark">
+    <ion-label>
+      Current Number of Logs:
+    </ion-label>
+    <ion-badge item-end>
+      {{currentLog}}
+    </ion-badge>
+  </ion-item>
+
+  <ion-grid style="height: 80%">
+    <ion-row justify-content-center align-items-center style="height: 100%">
+      <ion-button class="round" shape="round" (click)="onClickLog()" center middle>
+        <strong>Overnight Sleep</strong>
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-tabs>
+
+      <ion-tab-bar  color = "medium" slot="bottom">
+        <ion-tab-button tab="home" href="/home">
+          <ion-icon name="home"></ion-icon>
+          <ion-label>home</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="lognight" href="/lognight">
+          <ion-icon name="moon"></ion-icon>
+          <ion-label>night</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="logday" href="/logday">
+          <ion-icon name="sunny"></ion-icon>
+          <ion-label>day</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+
+      <ion-tab tab="home">
+        <ion-router-outlet name="home"></ion-router-outlet>
+      </ion-tab>
+
+      <ion-tab tab="lognight">
+        <ion-router-outlet name="night"></ion-router-outlet>
+      </ion-tab>
+
+      <ion-tab tab="logday">
+        <ion-router-outlet name="day"></ion-router-outlet>
+      </ion-tab>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>

@@ -7,18 +7,18 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FirebaseService {
-	collection:AngularFirestoreCollection;
+  collection: AngularFirestoreCollection;
 
-  constructor(db:AngularFirestore) {
-  	this.collection = db.collection('a5-sleeptracker');
+  constructor(db: AngularFirestore) {
+    this.collection = db.collection('a5-sleeptracker');
   }
 
-  addSleepLog(sleepLog:SleepData) {
-  	//TODO: implement this function to add sleep logs
+  addSleepLog(sleepLog: SleepData) {
+    //TODO: implement this function to add sleep logs
   }
 
-  getSleepLogs():Observable<DocumentData[]> {
-  	//TODO: implement this function to retrieve sleep logs
+  getSleepLogs(): Observable<DocumentData[]> {
+    //TODO: implement this function to retrieve sleep logs
     return undefined;
   }
 }

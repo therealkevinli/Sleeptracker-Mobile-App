@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color = "medium">
+    <ion-buttons slot="start" (click)="backNav()">
+      <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+    </ion-buttons>
+    <ion-title class="title-space">Input Your Sleepiness</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <br /><br />
+  <ion-label color="primary"> Input Your Sleepiness</ion-label>
+
+  <br /><br /><br /><br />
+  <ion-item>
+    <ion-label text-wrap>Extent of Sleepiness</ion-label>
+    <ion-select id="customActionSheetSelect" [(ngModel)]="degree" (value)="degree" interface="action-sheet" placeholder="Select One">
+      <ion-select-option value="1">1: Fully Active</ion-select-option>
+      <ion-select-option value="2">2: Close to Fully Active</ion-select-option>
+      <ion-select-option value="3">3: Awake</ion-select-option>
+      <ion-select-option value="4">4: Somewhat Foggy</ion-select-option>
+      <ion-select-option value="5">5: Foggy</ion-select-option>
+      <ion-select-option value="6">6: Sleepy</ion-select-option>
+      <ion-select-option value="7">7: Almost Asleep</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <br /><br /><br />
+  <br /><br /><br />
+
+  <ion-row class="bottom-line" bottom>
+    <ion-col col-2></ion-col>
+    <ion-col col-1>
+      <ion-fab>
+        <ion-fab-button (click)="dismiss()" color="danger">
+          <ion-icon name="close"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-col>
+    <ion-col col-6></ion-col>
+    <ion-col col-1>
+      <ion-fab>
+        <ion-fab-button (click)="sendData()" color="primary">
+          <ion-icon name="checkmark"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-col>
+    <ion-col col-2></ion-col>
+  </ion-row>
+</ion-content>

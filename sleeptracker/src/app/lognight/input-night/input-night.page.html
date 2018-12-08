@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar  color = "medium">
+    <ion-buttons slot="start" (click)="backNav()">
+      <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+    </ion-buttons>
+    <ion-title class = "title-space">Sleep Time</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding  color = "dark">
+  <br /><br />
+  <ion-label color="primary"> Input Your Start and End Sleep Time</ion-label>
+
+  <br /><br /><br /><br />
+  <!-- <ion-item>
+    <ion-label text-wrap>Extent of Sleepiness</ion-label>
+    <ion-select id="customActionSheetSelect" [(ngModel)]="degree" interface="action-sheet" placeholder="Select One">
+      <ion-select-option value="1">1: Fully Active</ion-select-option>
+      <ion-select-option value="2">2: Close to Fully Active</ion-select-option>
+      <ion-select-option value="3">3: Awake</ion-select-option>
+      <ion-select-option value="4">4: Somewhat Foggy</ion-select-option>
+      <ion-select-option value="5">5: Foggy</ion-select-option>
+      <ion-select-option value="6">6: Sleepy</ion-select-option>
+      <ion-select-option value="7">7: Fully Sleepy</ion-select-option>
+    </ion-select>
+  </ion-item> -->
+  <ion-item color = "dark">
+    <ion-label>Sleep Start</ion-label>
+    <!-- <ion-select dateVar = "2018-11-17T11:06Z"> -->
+    <ion-datetime displayFormat="MMM DD YYYY HH:mm" min="1997" max="2060" [(ngModel)]="startstring" (value)="startstring"></ion-datetime>
+  </ion-item>
+
+  <br /><br /><br />
+  <ion-item color = "dark">
+    <ion-label>Sleep End</ion-label>
+    <!-- <ion-select dateVar = "2018-11-17T11:06Z"> -->
+    <ion-datetime displayFormat="MMM DD YYYY HH:mm" min="1997" max="2060" [(ngModel)]="endstring" (value)="endstring"></ion-datetime>
+  </ion-item>
+  <br /><br /><br />
+  <br /><br /><br />
+
+  <ion-row class="bottom-line" bottom>
+    <ion-col col-2></ion-col>
+    <ion-col col-1>
+      <ion-fab>
+        <ion-fab-button (click)="dismiss()" color="danger">
+          <ion-icon name="close"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-col>
+    <ion-col col-6></ion-col>
+    <ion-col col-1>
+      <ion-fab>
+        <ion-fab-button (click)="sendData()" color="primary">
+          <ion-icon name="checkmark"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-col>
+    <ion-col col-2></ion-col>
+  </ion-row>
+</ion-content>
