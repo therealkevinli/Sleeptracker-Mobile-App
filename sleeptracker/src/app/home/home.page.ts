@@ -5,7 +5,12 @@ import { OvernightSleepData } from '../data/overnight-sleep-data';
 import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
 import { ActionSheetController } from '@ionic/angular';
 
-import {List} from '@ionic/angular';
+import { List } from '@ionic/angular';
+import { FirebaseService } from '../services/firebase.service';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { element } from '@angular/core/src/render3/instructions';
 
 
 @Component({
@@ -20,14 +25,16 @@ export class HomePage {
 
 	public apps: string;
 	public ifDelete = false;
-	public currentLog: number = SleepService.AllOvernightData.length;
-	constructor(public sleepService: SleepService, public actionSheet: ActionSheetController) {
+	public currentLogs: Observable<any>;
 
-	}
+	constructor(public sleepService: SleepService,
+		public liveService: FirebaseService,
+		public actionSheet: ActionSheetController) { }
 
 	ngOnInit() {
-		console.log(this.allSleepData);
+		// console.log(this.allSleepData);
 		this.apps = 'Night';
+		this.onClickNight();
 	}
 
 	/* Ionic doesn't allow bindings to static variables, so this getter can be used instead. */
@@ -44,13 +51,28 @@ export class HomePage {
 	}
 
 	onClickDay() {
-		this.currentLog = SleepService.AllSleepinessData.length;
-		console.log(this.apps + '+' + this.currentLog);
+		this.currentLogs = this.liveService.getDayData().pipe(map(array =>
+			// return array.reverse();
+			array.reverse().map(ele => {
+				return new StanfordSleepinessData(ele.scale,
+					new Date(ele.logAt.seconds * 1000),
+					ele.id);
+			})
+		));
+		// console.log(this.currentLogs);
 	}
 
 	onClickNight() {
-		this.currentLog = SleepService.AllOvernightData.length;
-		console.log(this.apps + '+' + this.currentLog);
+		// this.currentLogs = this.liveService.getNightData();
+
+		this.currentLogs = this.liveService.getNightData().pipe(map(array =>
+			// return array.reverse();
+			array.reverse().map(ele => {
+				return new OvernightSleepData(new Date(ele.start.seconds * 1000),
+					new Date(ele.end.seconds * 1000),
+					ele.id);
+			})
+		));
 	}
 
 	deleteNightData(item: any) {
@@ -76,7 +98,7 @@ export class HomePage {
 			actionSheet.onDidDismiss().then(() => {
 				if (this.ifDelete) {
 					this.slidingList.closeSlidingItems();
-					this.sleepService.deleteOvernightData(item);
+					this.liveService.deleteNightData(item.id);
 					this.ifDelete = false;
 				}
 			})
@@ -107,7 +129,7 @@ export class HomePage {
 			actionSheet.onDidDismiss().then(() => {
 				if (this.ifDelete) {
 					this.slidingList.closeSlidingItems();
-					this.sleepService.deleteSleppinessData(item);
+					this.liveService.deleteDayData(item.id);
 					this.ifDelete = false;
 				}
 			})

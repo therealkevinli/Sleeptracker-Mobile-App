@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { SleepService } from '../services/sleep.service';
 import { SleepData } from '../data/sleep-data';
+
 import { OvernightSleepData } from '../data/overnight-sleep-data';
 
 import { ModalController } from '@ionic/angular';
 import { InputNightPage } from './input-night/input-night.page';
+import { FirebaseService } from '../services/firebase.service';
 
 
 
@@ -16,11 +18,15 @@ import { InputNightPage } from './input-night/input-night.page';
 export class LognightPage implements OnInit {
 
   public currentLog: number;
-  constructor(public service: SleepService, public modalController: ModalController) { }
+  constructor(public service: SleepService,
+    public liveService: FirebaseService,
+    public modalController: ModalController) {
+      this.liveService.countLength(false).subscribe( data => {
+        this.currentLog = data.size;
+      });
+    }
 
-  ngOnInit() {
-    this.currentLog = SleepService.AllOvernightData.length;
-  }
+  ngOnInit() {  }
 
   onClickLog() {
     console.log('click happen');
@@ -31,10 +37,12 @@ export class LognightPage implements OnInit {
       modal.present();
 
       modal.onDidDismiss().then((data) => {
-        console.log(data);
         if (typeof data.data !== 'string') {
-          this.service.logOvernightData(data.data);
-          this.currentLog = SleepService.AllOvernightData.length;
+          // this.service.logOvernightData(data.data);
+          this.liveService.addSleepLog(data.data);
+          this.liveService.countLength(false).subscribe( dat => {
+            this.currentLog = dat.size;
+          });
         }
       });
     });

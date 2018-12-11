@@ -15,8 +15,8 @@ export class StanfordSleepinessData extends SleepData {
 
 	private loggedValue: number;
 
-	constructor(loggedValue: number, loggedAt: Date = new Date()) {
-		super();
+	constructor(loggedValue: number, loggedAt: Date = new Date(), id: string = '') {
+		super(id);
 		this.loggedValue = loggedValue;
 		this.loggedAt = loggedAt;
 	}
@@ -27,5 +27,14 @@ export class StanfordSleepinessData extends SleepData {
 
 	summaryString(): string {
 		return this.loggedAt.toDateString() + ' ' + this.loggedAt.toLocaleTimeString();
+	}
+
+	returnObject() {
+		const sent = {
+			'scale': this.loggedValue,
+			'logAt': this.loggedAt,
+			'id': this.id
+		};
+		return sent;
 	}
 }

@@ -19,7 +19,7 @@
 <ion-content color = "dark" padding>
 
   <ion-list color = "dark" #slidingList *ngIf="apps == 'Day'">
-    <ion-item-sliding color = "dark" *ngFor="let day of allSleepinessData">
+    <ion-item-sliding color = "dark" *ngFor="let day of currentLogs | async">
       <ion-item color = "dark">
         <ion-label>
           {{day.summaryString()}}
@@ -36,7 +36,7 @@
   </ion-list>
 
   <ion-list #slidingList color = "dark" *ngIf="apps == 'Night'">
-    <ion-item-sliding *ngFor="let night of allOvernightData">
+    <ion-item-sliding *ngFor="let night of currentLogs | async">
 
       <ion-item color = "dark">
         <ion-label text-wrap>

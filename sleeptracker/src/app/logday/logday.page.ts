@@ -3,6 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { InputDayPage } from './input-day/input-day.page';
 
 import { SleepService } from '../services/sleep.service';
+import { FirebaseService } from '../services/firebase.service';
+
 import { SleepData } from '../data/sleep-data';
 import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
 
@@ -15,11 +17,14 @@ export class LogdayPage implements OnInit {
 
   public currentLog: number;
   constructor(public service: SleepService,
-    public modalController: ModalController) { }
+    public liveService: FirebaseService,
+    public modalController: ModalController) {
+      this.liveService.countLength(true).subscribe( data => {
+        this.currentLog = data.size;
+      });
+    }
 
-  ngOnInit() {
-    this.currentLog = SleepService.AllSleepinessData.length;
-  }
+  ngOnInit() {  }
 
   onClickLog() {
     console.log('click happen');
@@ -29,10 +34,12 @@ export class LogdayPage implements OnInit {
       }).then((modal) => {
       modal.present();
       modal.onDidDismiss().then((data) => {
-        console.log(data);
         if (typeof data.data !== 'string') {
+          this.liveService.addDayLog(data.data);
           this.service.logSleepinessData(data.data);
-          this.currentLog = SleepService.AllSleepinessData.length;
+          this.liveService.countLength(true).subscribe( snap => {
+            this.currentLog = snap.size;
+          });
         }
       });
       });

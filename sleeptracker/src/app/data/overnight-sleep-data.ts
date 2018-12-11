@@ -4,8 +4,8 @@ export class OvernightSleepData extends SleepData {
 	private sleepStart: Date;
 	private sleepEnd: Date;
 
-	constructor(sleepStart: Date, sleepEnd: Date) {
-		super();
+	constructor(sleepStart: Date, sleepEnd: Date, id: string = '') {
+		super(id);
 		this.sleepStart = sleepStart;
 		this.sleepEnd = sleepEnd;
 	}
@@ -23,5 +23,15 @@ export class OvernightSleepData extends SleepData {
 
 	dateString(): string {
 		return "Night of " + this.sleepStart.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+	}
+
+	returnObject() {
+		const sent = {
+			'start': this.sleepStart,
+			'end': this.sleepEnd,
+			'logAt': this.loggedAt,
+			'id': this.id
+		};
+		return sent;
 	}
 }

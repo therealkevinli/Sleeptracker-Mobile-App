@@ -1,12 +1,16 @@
 import * as shortid from 'shortid';
 
 export class SleepData {
-	id: string;
-	loggedAt: Date;
+	public id: string;
+	public loggedAt: Date;
 
-	constructor() {
+	constructor( public idin: string = '') {
 		// Assign a random (unique) ID. This may be useful for comparison (e.g., are two logged entries the same).
-		this.id = shortid();
+		if (this.idin !== '') {
+			this.id = this.idin;
+		} else {
+			this.id = shortid();
+		}
 		this.loggedAt = new Date();
 	}
 
