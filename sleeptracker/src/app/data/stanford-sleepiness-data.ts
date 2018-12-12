@@ -25,8 +25,12 @@ export class StanfordSleepinessData extends SleepData {
 		return this.loggedValue;
 	}
 
-	summaryString(): string {
-		return this.loggedAt.toDateString() + ' ' + this.loggedAt.toLocaleTimeString();
+	dateString(): string {
+		return this.loggedAt.toDateString();
+	}
+
+	sumString(): string {
+		return 'Logged at ' + this.loggedAt.toLocaleTimeString() + ', today you feel: ';
 	}
 
 	returnObject() {
